@@ -1,3 +1,3 @@
 service : {
-  topUp: (nat) -> () oneway;
+  checkBalance: () -> (float64) query;
 }

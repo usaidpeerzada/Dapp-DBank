@@ -1,19 +1,33 @@
 import { hello } from "../../declarations/hello";
 
-document.querySelector("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const button = e.target.querySelector("button");
+window.addEventListener("load", async function () {
+  console.log("hello", hello);
+  const currentAmount = await hello.checkBalance();
+  document.getElementById("value").innerText =
+    Math.round(currentAmount * 100) / 100;
+});
 
-  const name = document.getElementById("name").value.toString();
+document.querySelector("form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const button = e.target.querySelector("#submit-btn");
+
+  const inputAmount = parseFloat(document.getElementById("input-amount").value);
+  const outputAmount = parseFloat(
+    document.getElementById("withdrawal-amount").value
+  );
 
   button.setAttribute("disabled", true);
+  if (inputAmount) {
+    await hello.topUp(inputAmount);
+  } else if (outputAmount) {
+    await hello.withdraw(outputAmount);
+  } else {
+    alert("add or withdraw amount");
+  }
+  const currentAmount = await hello.checkBalance();
+  document.getElementById("value").innerText =
+    Math.round(currentAmount * 100) / 100;
 
-  // Interact with foo actor, calling the greet method
-  const greeting = await hello.greet(name);
-
+  document.getElementById("input-amount").value = "";
   button.removeAttribute("disabled");
-
-  document.getElementById("greeting").innerText = greeting;
-
-  return false;
 });
