@@ -33,5 +33,6 @@ actor DBank {
     let timeElapsedS = timeElapsedNS / 1000000000;
     currentValue := currentValue * (1.01 ** Float.fromInt(timeElapsedS));
     startTime := currentTime;
+    Debug.print(debug_show(startTime));
   };  
 }
