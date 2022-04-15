@@ -20,7 +20,7 @@ actor DBank {
     if (tempValue >= 0){
     currentValue -=  amount;
     Debug.print(debug_show(currentValue));
-    }
+    };
   };
 
   public query func checkBalance(): async Float {
